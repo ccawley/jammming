@@ -4,9 +4,9 @@ import './Track.css'
 class Track extends Component {
   renderAction() {
     if (this.isRemoval) {
-      return <a href='#'>-</a>;
+      return <a href=''>-</a>;
     } else {
-      return <a href='#'>+</a>;
+      return <a href=''>+</a>;
     }
   }
 
