@@ -1,10 +1,30 @@
 import React, { Component } from 'react';
 import './App.css';
 // import SearchBar from '../SearchBar/SearchBar';
-// import SearchResults from '../SearchResults/SearchResults';
+import SearchResults from '../SearchResults/SearchResults';
 // import Playlist from '../Playlist/Playlist';
 
 class App extends Component {
+  constructor(props) {
+    super();
+    this.state = {
+      searchResults: [
+        {
+          name: 'Nine 2 Five',
+          artist: 'Ben Dragon',
+          album: 'Work',
+          id: 1
+        },
+        {
+          name: 'Ever Work',
+          artist: 'Dateless',
+          album: 'Goop',
+          id: 2
+        }
+      ]
+    };
+  }
+
   render() {
     return (
       <div>
@@ -12,7 +32,7 @@ class App extends Component {
         <div className="App">
           {/* {<!-- Add a SearchBar component -->} */}
           <div className="App-playlist">
-            {/* {<!-- Add a SearchResults component -->} */}
+            <SearchResults searchResults={this.state.searchResults} />
             {/* {<!-- Add a Playlist component -->} */}
           </div>
         </div>
