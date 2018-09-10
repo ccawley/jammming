@@ -6,34 +6,27 @@ const redirectUri = '&redirect_uri=http://localhost:3000/';
 let Spotify = {
   getAccessToken() {
     if (usersAccessToken) {
+      console.log(usersAccessToken, '1st');
       return usersAccessToken;
     } else if (!usersAccessToken) {
       window.location.href = `https://accounts.spotify.com/authorize?${clientId}&response_type=token&scope=playlist-modify-public&${redirectUri}`;
+      console.log(usersAccessToken, '2nd');
       let urlResponse = window.location.href;
-      usersAccessToken = urlResponse.match(/access_token=([^&]*)/);
+      usersAccessToken = urlResponse.match(/access_token=([^&]*)/)[0];
       expirationTime = urlResponse.match(/expires_in=([^&]*)/);
+      expirationTime = parseInt(expirationTime[0], 0);
+      console.log(usersAccessToken, '3rd');
+      console.log(expirationTime, '1st');
       if (!usersAccessToken || !expirationTime) {
+        console.log(usersAccessToken, '4th');
         window.location.href = `https://accounts.spotify.com/authorize?${clientId}&response_type=token&scope=playlist-modify-public&${redirectUri}`;
+        console.log(usersAccessToken, '5th');
+      } else {
+        window.setTimeout(() => usersAccessToken = '', expirationTime * 1000);
+        window.history.pushState('Access Token', null, '/');
+        console.log(usersAccessToken, '6th');
+        return usersAccessToken;
       }
-      window.setTimeout(() => usersAccessToken = '', expirationTime * 1000);
-      window.history.pushState('Access Token', null, '/');
-    //   async() => {
-    //     try {
-    //       const response = await fetch(`https://accounts.spotify.com/authorize?${clientId}&response_type=token&scope=playlist-modify-public&${redirectUri}`)
-    //       if (response.ok) {
-    //         usersAccessToken = window.location.href.match(/access_token=([^&]*)/);
-    //         expirationTime = window.location.href.match(/expires_in=([^&]*)/);
-    //         window.setTimeout(() => usersAccessToken = '', expirationTime * 1000);
-    //         window.history.pushState('Access Token', null, '/');
-    //       }
-    //       throw new Error('Request failed!');
-    //     } catch (error) {
-    //       console.log(error)
-    //     };
-    //   };
-    // } else {
-    //   window.location.href = `https://accounts.spotify.com/authorize?${clientId}&response_type=token&scope=playlist-modify-public&${redirectUri}`;
-    // }
     }
   },
 
