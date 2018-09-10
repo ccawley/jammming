@@ -34,6 +34,7 @@ let Spotify = {
     // } else {
     //   window.location.href = `https://accounts.spotify.com/authorize?${clientId}&response_type=token&scope=playlist-modify-public&${redirectUri}`;
     // }
+    }
   }
 
 };
