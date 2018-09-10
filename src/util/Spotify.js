@@ -8,12 +8,12 @@ let Spotify = {
     if (usersAccessToken) {
       return usersAccessToken;
     } else if (!usersAccessToken) {
-      window.location.href = `https://accounts.spotify.com/authorize?${clientId}&response_type=token&scope=playlist-modify-public&${redirectUri}`;
+      window.location.href = `https://accounts.spotify.com/authorize?${clientId}&response_type=token&scope=playlist-modify-public&{redirectUri}`;
       let urlResponse = window.location.href;
       usersAccessToken = urlResponse.match(/access_token=([^&]*)/);
       expirationTime = urlResponse.match(/expires_in=([^&]*)/);
       if (!usersAccessToken || !expirationTime) {
-        window.location.href = `https://accounts.spotify.com/authorize?${clientId}&response_type=token&scope=playlist-modify-public&${redirectUri}`);
+        window.location.href = `https://accounts.spotify.com/authorize?${clientId}&response_type=token&scope=playlist-modify-public&{redirectUri}`);
       }
       window.setTimeout(() => usersAccessToken = '', expirationTime * 1000);
       window.history.pushState('Access Token', null, '/');
