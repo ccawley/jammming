@@ -8,12 +8,12 @@ let Spotify = {
     if (usersAccessToken) {
       return usersAccessToken;
     } else if (!usersAccessToken) {
-      window.location.href = `https://accounts.spotify.com/authorize?${clientId}&response_type=token&scope=playlist-modify-public&{redirectUri}`;
+      window.location.href = `https://accounts.spotify.com/authorize?${clientId}&response_type=token&scope=playlist-modify-public&${redirectUri}`;
       let urlResponse = window.location.href;
       usersAccessToken = urlResponse.match(/access_token=([^&]*)/);
       expirationTime = urlResponse.match(/expires_in=([^&]*)/);
       if (!usersAccessToken || !expirationTime) {
-        window.location.href = `https://accounts.spotify.com/authorize?${clientId}&response_type=token&scope=playlist-modify-public&{redirectUri}`;
+        window.location.href = `https://accounts.spotify.com/authorize?${clientId}&response_type=token&scope=playlist-modify-public&${redirectUri}`;
       }
       window.setTimeout(() => usersAccessToken = '', expirationTime * 1000);
       window.history.pushState('Access Token', null, '/');
@@ -38,15 +38,15 @@ let Spotify = {
   },
 
   search(searchTerm) {
-    async() => {
-      let headersObj = {
-        headers: {Authorization: `Bearer ${usersAccessToken}`}
-      }
+    return async() => {
       try {
+        let headersObj = {
+          headers: {Authorization: `Bearer ${usersAccessToken}`}
+        }
         const response = await fetch(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, headersObj);
         if (response.ok) {
           const jsonResponse = await response.json();
-          const results = jsonResponse.map(track => {
+          return jsonResponse.map(track => {
             return {
               id: track.id,
               name: track.name,
