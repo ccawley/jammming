@@ -13,7 +13,7 @@ let Spotify = {
       usersAccessToken = urlResponse.match(/access_token=([^&]*)/);
       expirationTime = urlResponse.match(/expires_in=([^&]*)/);
       if (!usersAccessToken || !expirationTime) {
-        window.location.href = `https://accounts.spotify.com/authorize?${clientId}&response_type=token&scope=playlist-modify-public&{redirectUri}`);
+        window.location.href = `https://accounts.spotify.com/authorize?${clientId}&response_type=token&scope=playlist-modify-public&{redirectUri}`;
       }
       window.setTimeout(() => usersAccessToken = '', expirationTime * 1000);
       window.history.pushState('Access Token', null, '/');
@@ -35,7 +35,7 @@ let Spotify = {
     //   window.location.href = `https://accounts.spotify.com/authorize?${clientId}&response_type=token&scope=playlist-modify-public&${redirectUri}`;
     // }
     }
-  }
+  },
 
   search(searchTerm) {
     async() => {
