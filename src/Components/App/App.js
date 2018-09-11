@@ -65,7 +65,7 @@ class App extends Component {
   }
 
   addTrack(track) {
-    if (this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
+    if (this.state.playListTracks.find(savedTrack => savedTrack.id === track.id)) {
       return;
     }
     this.setState({ playListTracks: track });
@@ -78,7 +78,7 @@ class App extends Component {
   }
 
   updatePlaylistName(name) {
-    this.setState({ playListName: name });
+    this.setState({ playlistName: name });
   }
 
   savePlaylist() {
@@ -100,7 +100,7 @@ class App extends Component {
           <div className="App-playlist">
             <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
             <Playlist
-              playListName={this.state.playListName}
+              playListName={this.state.playlistName}
               playListTracks={this.state.playListTracks}
               onRemove={this.removeTrack}
               onNameChange={this.updatePlaylistName}

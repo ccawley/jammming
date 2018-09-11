@@ -31,9 +31,6 @@ class Track extends Component {
           <h3>{this.props.track.name}</h3>
           <p>{this.props.track.artist} | {this.props.track.album}</p>
         </div>
-        {/* I am unsure of where the code from steps 47,55 should go? Line below this is the original version of line below that from codeAcademy. */}
-        {/* <a className="Track-action"><!-- + or - will go here --></a> */}
-        {/* <a className="Track-action" onClick={this.addTrack}>{this.renderAction()}</a> */}
         {this.renderAction()}
       </div>
     );
