@@ -1,27 +1,43 @@
 let usersAccessToken;
-let expirationTime;
 const clientId = 'client_id=e1544d3bed444788bb6a705c22207d64';
 const redirectUri = '&redirect_uri=http://localhost:3000/';
 
 const Spotify = {
   getAccessToken() {
     if (usersAccessToken) {
+      return usersAccessToken
+    }
+    let accessToken = window.location.href.match(/access_token=([^&]*)/)[1];
+    let tokenExpiration = window.location.href.match(/expires_in=([^&]*)/)[1];
+    if (accessToken && tokenExpiration) {
+      usersAccessToken = accessToken;
+      let expirationTime = parseInt(tokenExpiration, 0);
+      window.setTimeout(() => usersAccessToken = '', expirationTime * 1000);
+      window.history.pushState('Access Token', null, '/');
       return usersAccessToken;
-    } else if (!usersAccessToken) {
-      window.location.href = `https://accounts.spotify.com/authorize?${clientId}&response_type=token&scope=playlist-modify-public&${redirectUri}`;
-      let urlResponse = window.location.href;
-      usersAccessToken = urlResponse.match(/access_token=([^&]*)/)[0];
-      expirationTime = urlResponse.match(/expires_in=([^&]*)/);
-      expirationTime = parseInt(expirationTime[0], 0);
-      if (!usersAccessToken || !expirationTime) {
-        window.location.href = `https://accounts.spotify.com/authorize?${clientId}&response_type=token&scope=playlist-modify-public&${redirectUri}`;
-      } else {
-        window.setTimeout(() => usersAccessToken = '', expirationTime * 1000);
-        window.history.pushState('Access Token', null, '/');
-        return usersAccessToken;
-      }
+    } else {
+      window.location = `https://accounts.spotify.com/authorize?${clientId}&response_type=token&scope=playlist-modify-public&${redirectUri}`;
     }
   },
+  // OLD CODE BELOW, REFACTORED ABOVE
+  // getAccessToken() {
+  //   if (usersAccessToken) {
+  //     return usersAccessToken;
+  //   } else if (!usersAccessToken) {
+  //     window.location.href = `https://accounts.spotify.com/authorize?${clientId}&response_type=token&scope=playlist-modify-public&${redirectUri}`;
+  //     let urlResponse = window.location.href;
+  //     usersAccessToken = urlResponse.match(/access_token=([^&]*)/)[0];
+  //     expirationTime = urlResponse.match(/expires_in=([^&]*)/)[0];
+  //     expirationTime = parseInt(expirationTime[0], 0);
+  //     if (!usersAccessToken || !expirationTime) {
+  //       window.location.href = `https://accounts.spotify.com/authorize?${clientId}&response_type=token&scope=playlist-modify-public&${redirectUri}`;
+  //     } else {
+  //       window.setTimeout(() => usersAccessToken = '', expirationTime * 1000);
+  //       window.history.pushState('Access Token', null, '/');
+  //       return usersAccessToken;
+  //     }
+  //   }
+  // },
 
   search(searchTerm) {
     return async() => {
