@@ -82,7 +82,8 @@ class App extends Component {
   }
 
   savePlaylist() {
-    // Guts from step 62 and especially 63 go here? More details might come later in instructions?
+    Spotify.savePlaylist();
+    this.setState({ playlistName: 'New Playlist', playListTracks: [] });
   }
 
   search(searchTerm) {

@@ -35,10 +35,10 @@ let Spotify = {
       try {
         let headersObj = {
           headers: {Authorization: `Bearer ${usersAccessToken}`}
-        }
-        const response = await fetch(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, headersObj);
+        };
+        let response = await fetch(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, headersObj);
         if (response.ok) {
-          const jsonResponse = await response.json();
+          let jsonResponse = await response.json();
           return jsonResponse.map(track => {
             return {
               id: track.id,
@@ -46,13 +46,66 @@ let Spotify = {
               artist: track.artists[0].name,
               album: track.album.name,
               uri: track.uri
-            }
+            };
           })
         }
         throw new Error('Request failed!');
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
+    }
+  },
+
+  savePlaylist(playlistName, trackUrisArr) {
+    if (playlistName && trackUrisArr) {
+      return async() => {
+        try {
+          let accessToken = usersAccessToken;
+          let headers = {
+            headers: {Authorization: `Bearer ${accessToken}`}
+          };
+          let userId;
+          let playlistId;
+          let response = await fetch(`https://api.spotify.com/v1/me`, headers);
+          if (response.ok) {
+            let jsonResponse = await response.json();
+            userId = jsonResponse.body.id;
+          }
+          let secondResponse = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              'Content-Type': `application/json`
+            },
+            body: {
+              name: playlistName
+            }
+          })
+          if (secondResponse.ok) {
+            let jsonResponse = await response.json();
+            playlistId = jsonResponse.body.id;
+          }
+          let thirdResponse = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              'Content-Type': `application/json`
+            },
+            body: {
+              uris: trackUrisArr
+            }
+          })
+          if (thirdResponse.ok) {
+            let jsonResponse = await response.json();
+            playlistId = jsonResponse.body.id;
+          }
+          throw new Error('Request failed');
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    } else {
+      return;
     }
   }
 
