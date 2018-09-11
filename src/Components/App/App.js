@@ -35,7 +35,7 @@ class App extends Component {
           id: 4
         }
       ],
-      playlistName: 'Curts Playlist',
+      playlistName: '',
       playListTracks: [
         {
           name: 'Nine 2 Five',

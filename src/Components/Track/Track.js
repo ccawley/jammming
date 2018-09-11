@@ -10,9 +10,9 @@ class Track extends Component {
 
   renderAction() {
     if (this.props.isRemoval) {
-      return '-';
+      return <a className="Track-action" onClick={this.removeTrack}>-</a>;
     } else {
-      return '+';
+      return <a className="Track-action" onClick={this.addTrack}>+</a>;
     }
   }
 
@@ -33,7 +33,8 @@ class Track extends Component {
         </div>
         {/* I am unsure of where the code from steps 47,55 should go? Line below this is the original version of line below that from codeAcademy. */}
         {/* <a className="Track-action"><!-- + or - will go here --></a> */}
-        <a className="Track-action" onClick={this.addTrack}>{this.renderAction()}</a>
+        {/* <a className="Track-action" onClick={this.addTrack}>{this.renderAction()}</a> */}
+        {this.renderAction()}
       </div>
     );
   }
