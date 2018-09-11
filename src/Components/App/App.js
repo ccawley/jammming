@@ -90,8 +90,13 @@ class App extends Component {
   }
 
   search(searchTerm) {
-    let searchResult = Spotify.search(searchTerm);
-    this.setState({ searchResults: searchResult});
+    Spotify.search(searchTerm)
+    .then(searchResults => {
+      this.setState({ searchResults: searchResults});
+    })
+    // ORIGINAL ATTEMPT/THOUGHT PROCESS BELOW, REFACTORED ABOVE BUT STILL NOT WORKING :(
+    // let searchResult = Spotify.search(searchTerm);
+    // this.setState({ searchResults: searchResult});
   }
 
   render() {
