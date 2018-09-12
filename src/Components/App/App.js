@@ -9,53 +9,9 @@ class App extends Component {
   constructor(props) {
     super();
     this.state = {
-      searchResults: [
-        {
-          name: 'Nine 2 Five',
-          artist: 'Ben Dragon',
-          album: 'Work',
-          id: 1
-        },
-        {
-          name: 'Ever Work',
-          artist: 'Dateless',
-          album: 'Goop',
-          id: 2
-        },
-        {
-          name: 'Bananas',
-          artist: 'Gwen Stefan',
-          album: 'Something',
-          id: 3
-        },
-        {
-          name: 'APOG Set',
-          artist: 'Friend Zone',
-          album: 'Crystal Grove',
-          id: 4
-        }
-      ],
+      searchResults: [],
       playlistName: '',
-      playListTracks: [
-        {
-          name: 'Nine 2 Five',
-          artist: 'Ben Dragon',
-          album: 'Work',
-          id: 1
-        },
-        {
-          name: 'Ever Work',
-          artist: 'Dateless',
-          album: 'Goop',
-          id: 2
-        },
-        {
-          name: 'APOG Set',
-          artist: 'Friend Zone',
-          album: 'Crystal Grove',
-          id: 4
-        }
-      ]
+      playListTracks: []
     };
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
@@ -104,7 +60,7 @@ class App extends Component {
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-          <SearchBar onSearch={this.search}/>
+          <SearchBar onSearch={this.search} />
           <div className="App-playlist">
             <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
             <Playlist
