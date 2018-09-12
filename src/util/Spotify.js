@@ -7,11 +7,11 @@ const Spotify = {
     if (usersAccessToken) {
       return usersAccessToken
     }
-    let accessToken = window.location.href.match(/access_token=([^&]*)/)[1];
-    let tokenExpiration = window.location.href.match(/expires_in=([^&]*)/)[1];
+    let accessToken = window.location.href.match(/access_token=([^&]*)/);
+    let tokenExpiration = window.location.href.match(/expires_in=([^&]*)/);
     if (accessToken && tokenExpiration) {
-      usersAccessToken = accessToken;
-      let expirationTime = Number(tokenExpiration);
+      usersAccessToken = accessToken[1];
+      let expirationTime = Number(tokenExpiration)[1];
       window.setTimeout(() => usersAccessToken = '', expirationTime * 1000);
       window.history.pushState('Access Token', null, '/');
       return usersAccessToken;
@@ -48,14 +48,14 @@ const Spotify = {
       let response = await fetch(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, headersObj);
       if (response.ok) {
         let jsonResponse = await response.json();
-        return jsonResponse.map(track => {
-          return {
+        return jsonResponse.tracks.items.map(track => {
+          ({
             id: track.id,
             name: track.name,
             artist: track.artists[0].name,
             album: track.album.name,
             uri: track.uri
-          };
+          });
         })
       }
       throw new Error('Request failed!');

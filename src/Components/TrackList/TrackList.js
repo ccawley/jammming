@@ -7,7 +7,7 @@ class TrackList extends Component {
     return (
       <div className="TrackList">
         {
-          this.props.tracks.map(track => {
+          this.props.tracks.items.map(track => {
             return <Track
               track={track}
               key={track.id}

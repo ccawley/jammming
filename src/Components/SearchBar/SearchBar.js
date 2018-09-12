@@ -4,23 +4,26 @@ import './SearchBar.css';
 class SearchBar extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      searchTerm: ''
+    };
     this.search = this.search.bind(this);
     this.handleTermChange = this.handleTermChange.bind(this);
   }
 
   search() {
-    this.props.onSearch(this.props.searchTerm);
+    this.props.onSearch(this.state.searchTerm);
   }
 
   handleTermChange(e) {
-    // Guts from step 71 should go in here, more details to come?
+    this.setState({ searchTerm: e.target.value });
   }
 
   render() {
     return (
       <div className="SearchBar">
         <input placeholder="Enter A Song, Album, or Artist" onChange={this.handleTermChange} />
-        <a>SEARCH</a>
+        <a onClick={this.search}>SEARCH</a>
       </div>
     );
   }
