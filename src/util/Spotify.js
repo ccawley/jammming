@@ -1,6 +1,6 @@
 let usersAccessToken;
 const clientId = 'client_id=e1544d3bed444788bb6a705c22207d64';
-const redirectUri = 'http://www.wejammming.surge.sh';
+const redirectUri = '&redirect_uri=http://wejammming.surge.sh';
 
 const Spotify = {
   getAccessToken() {
