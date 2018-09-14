@@ -9,6 +9,7 @@ class SearchBar extends Component {
     };
     this.search = this.search.bind(this);
     this.handleTermChange = this.handleTermChange.bind(this);
+    this.onEnter = this.onEnter.bind(this);
   }
 
   search() {
@@ -19,10 +20,20 @@ class SearchBar extends Component {
     this.setState({ searchTerm: e.target.value });
   }
 
+  onEnter(e) {
+    if (e.keyCode === 13) {
+      console.log('clicked');
+      this.search();
+    }
+  }
+
   render() {
     return (
       <div className="SearchBar">
-        <input placeholder="Enter A Song, Album, or Artist" onChange={this.handleTermChange} />
+        <input
+          placeholder="Enter A Song, Album, or Artist"
+          onChange={this.handleTermChange}
+          onKeyDown={this.onEnter} />
         <a onClick={this.search}>SEARCH</a>
       </div>
     );
