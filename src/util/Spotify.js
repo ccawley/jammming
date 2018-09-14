@@ -1,6 +1,9 @@
 let usersAccessToken;
 const clientId = 'client_id=e1544d3bed444788bb6a705c22207d64';
+// Use below for deploying to be live...
 const redirectUri = '&redirect_uri=http://wejammming.surge.sh';
+// Use below for testing and building new code while running locally...
+// const redirectUri = '&redirect_uri=http://localhost:3000';
 
 const Spotify = {
   getAccessToken() {
